@@ -1,0 +1,163 @@
+{% extends "master_page.html" %}
+{% load staticfiles %}
+
+{% block css %} 
+<style type="text/css">
+.modal-dialog {width:600px;}
+.thumbnail {margin-bottom:6px;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container" ng-app="appProducts" ng-controller="mainController">
+    <h3>Registro de productos</h3>
+<div class="row">
+    <div class="col-md-4">
+        <form role="form">
+            <div class="form-group" >
+                <label for="txtNameProcut" class="control-label sr-only">Nombre del Producto</label>
+                <input type="text" class="form-control" id="txtNameProcut" ng-model="product.name" placeholder="Nombre del Producto:">
+            </div>
+            <div class="form-group">
+                <label for="txtCodeProcut" class="control-label sr-only">Codigo</label>
+                <input type="text" class="form-control" id="txtCodeProcut" ng-model="product.code" placeholder="Codigo:">
+            </div>
+    
+              <div class="form-group">
+                <label for="txtPrice" class="control-label sr-only">Precio</label>
+                <input type="number" class="form-control" id="txtPrice" ng-model="product.price" placeholder="Precio:">
+            </div>
+    
+              <div class="form-group">
+                <label for="txtPricePublic" class="control-label sr-only">Precio Publico</label>
+                <input type="number" class="form-control" id="txtPricePublic" ng-model="product.price_public" placeholder="Precio Publico:">
+            </div>
+    
+            <div class="form-group">
+                <label for="txtExistence" class="control-label sr-only">Piezas existentes</label>
+                <input type="number" class="form-control" id="txtExistence" ng-model="product.existence" placeholder="Piezas existentes:">
+            </div>
+
+            <div class="form-group">
+                <select class="form-control" ng-model="product.category" id="slCategory ">
+                    <option value="" hidden selected disabled>Seleccione categoria...</option>
+                    <option ng-repeat="category in categories" value="{$ category.id $}">{$ category.name $}</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="txaDescription" class="sr-only">Descripcion del producto</label>
+                <textarea id="txaDescription" ng-model="product.description" class="form-control" placeholder="Descripcion del producto:"></textarea>
+            </div>
+            
+
+        </form>
+    </div>
+
+    <div class="col-md-4">
+         <form role="form">
+
+            <div class="form-group" >
+                <label for="txtMarca" class="control-label sr-only">Marca</label>
+                <input id="txtMarca" type="text" class="form-control" ng-model="product.marca" placeholder="Marca">
+            </div>
+
+            <div class="form-group">
+                <label for="txtModelo" class="control-label sr-only">Modelo</label>
+                <input id="txtModelo" type="text" class="form-control" ng-model="product.model" placeholder="Modelo">
+            </div>
+    
+            <div class="form-group">
+                <label for="txtPeso" class="control-label sr-only">Peso (kg):</label>
+                <input id="txtPeso" type="number" class="form-control" ng-model="product.weight" placeholder="Peso (kg)">
+            </div>
+    
+            <div class="form-group">
+                <label for="txtAncho" class="control-label sr-only">Ancho (m)</label>
+                <input id="txtAncho" type="number" class="form-control" ng-model="product.ancho" placeholder="Ancho (m)">
+            </div>
+
+            <div class="form-group">
+                <label for="txtLargo" class="control-label sr-only">Largo (m)</label>
+                <input id="txtLargo" type="number" class="form-control" ng-model="product.largo" placeholder="Largo (m)">
+            </div>
+    
+            <div class="form-group">
+                <label for="txtAlto" class="control-label sr-only">Alto (m)</label>
+                <input id="txtAlto" type="number" class="form-control" ng-model="product.alto" placeholder="Alto (m)">
+            </div>
+            
+            <div class="btn-group">
+                <button type="button" ng-click="addProduct()" class="btn btn-default">
+                    <span class="glyphicon glyphicon-plus"></span> Agregar
+                </button>
+                <button type="button" ng-click="addProduct()" class="btn btn-default">
+                    <span class="glyphicon glyphicon-floppy-saved"></span> Guardar
+                </button>
+                <button type="button" ng-click="addProduct()" class="btn btn-default">
+                    <span class="glyphicon glyphicon-remove"></span> Limpiar
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-md-4">
+        <div>
+            <input  onchange="angular.element(this).scope().uploadImage(this)" ng-model="confirmed" type="file" class="filestyle" data-input="false" id="imageUpload">
+        </div>
+        <div ng-repeat="i in images" class="col-lg-3 col-sm-4 col-xs-6">
+            <a title="" href="#">
+                <img class="thumbnail img-responsive" src="{$ i.image $}">
+            </a>
+        </div>
+    </div>
+
+</div> <!-- fin row -->
+
+
+    <div tabindex="-1" class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">×</button>
+                    <h3 class="modal-title">Heading</h3>
+                </div>
+                <div class="modal-body"> </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <!--    this table show all products  -->
+ <table class="table table-striped table-bordered table-hover">
+ <thead>
+ <tr>
+    <th>Nombre</th>
+    <th>Precio</th>
+    <th>Precio Publico</th>
+    <th>En existencia</th>
+    <th>Imagenes</th>       
+ </tr>
+ </thead>
+ <tbody>
+ <tr ng-repeat="p in products" ng-click="setProduct(this)" style="cursor:pointer;">
+    <td>{$ p.name $}</td>
+    <td>{$ p.price $}</td>
+    <td>{$ p.price_public $}</td>
+    <td>{$ p.existence $}</td>
+    <td> imagen </td>
+ </tr>
+ </tbody>
+ </table>
+</div>
+
+{% endblock %}
+
+{% block scripts %} 
+<script src="{% static 'js/bootstrap-filestyle/src/bootstrap-filestyle.min.js' %}"></script>
+<!-- app scripts -->
+<script src="{% static 'js/app/add_products.js' %}"></script>
+{% endblock %}

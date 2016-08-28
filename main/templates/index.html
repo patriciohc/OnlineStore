@@ -1,0 +1,27 @@
+{% extends "master_page.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="container" ng-app="appHome" ng-controller="homeController">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">Shop Name</p>
+                <div class="list-group">
+                    <p ng-repeat="c in categories" ng-click="updateList()" class="list-group-item" style="cursor:pointer;">{$ c.name $}</p>
+                </div>
+            </div>
+
+            <div ng-include="'/content_home'"></div>
+           <div ng-include="'/details_products'"></div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block scripts %} 
+<!-- app scripts -->
+<script src="{% static 'js/app/home.js' %}"></script>
+{% endblock %}
