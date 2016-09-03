@@ -1,0 +1,47 @@
+
+{% extends "master_page.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container" ng-controller="pedidoController">
+
+<div ng-repeat="p in addProductsInCar"  class="well">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="text-primary">{$ p.name $}</h3>
+            <p> {$ p.description $} </p>
+        </div>
+        <div class=col-md-4>
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group" style="max-width:140px;">
+                        <!-- <label for="cantProducts" class="control-label">Cant</label>  -->
+                        <!-- <div class="input-group-addon">Cantidad</div> -->
+                        <input id="cantProducts" class="form-control bfh-number" type="text" name=""/>
+
+                        <div class="input-group-btn">
+                            <button class="btn btn-default">+</button>
+                            <button class="btn btn-default">-</button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="text-info" style="font-size:20px;">$ {$ p.price_public $} </span>
+                </div>
+                <div class="form-group">
+                        <button class="btn btn-primary">Eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+
+
+{% block scripts %} 
+<!-- app scripts -->
+<script src="{% static 'js/app/pedido.js' %}"></script>
+{% endblock %}

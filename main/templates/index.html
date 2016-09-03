@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block content %}
-    <div class="container" ng-app="appHome" ng-controller="homeController">
+    <div class="container" ng-controller="homeController">
 
         <div class="row">
 
@@ -13,8 +13,8 @@
                 </div>
             </div>
 
-            <div ng-include="'/content_home'"></div>
-           <div ng-include="'/details_products'"></div>
+            <div ng-include="'/content_home'" onload="onloadHome()"></div>
+            <div ng-include="'/details_products'"></div>
 
         </div>
     </div>

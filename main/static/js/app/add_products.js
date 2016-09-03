@@ -1,9 +1,3 @@
-var app = angular.module('appProducts', []);
-// configuracion para compatibilidad con python
-app.config(function($interpolateProvider) {
-    $interpolateProvider.startSymbol('{$');
-    $interpolateProvider.endSymbol('$}');
-});
 
 app.controller('mainController', function($scope, $http) {
     // obtencion de catalogo de categorias

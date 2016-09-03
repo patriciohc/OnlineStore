@@ -1,5 +1,34 @@
 var token = null;
 
+
+var app = angular.module('mainApp', []);
+// configuracion para compatibilidad con python
+app.config(function($interpolateProvider) {
+    $interpolateProvider.startSymbol('{$');
+    $interpolateProvider.endSymbol('$}');
+});
+
+
+// productos agregados al carrito de compras
+app.factory("carrito", function(){
+    var idsProdIncar = tools.getCookie("productos");
+    if (idsProdIncar != ""){
+        return JSON.parse(idsProdIncar);
+    } else {
+        return [];
+    }
+});
+
+
+app.controller('menuController', function($scope, $http, carrito) {
+
+    $scope.carrito = carrito;
+});
+
+
+
+
+
 window.onload = function (){
     updateBanner();
 };

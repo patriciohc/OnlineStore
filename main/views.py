@@ -15,3 +15,6 @@ def add_products(request):
 
 def details_products(request):
     return render(request, 'details_products.html', {})
+
+def pedido(request):
+    return render(request, 'pedido.html', {})

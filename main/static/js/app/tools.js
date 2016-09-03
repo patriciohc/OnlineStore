@@ -62,4 +62,13 @@ var tools = {
     deleteCookie: function (keyCookie){
         document.cookie = keyCookie + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"; 
     },
+//obtiene un array de un json
+    getArrayJson: function(data, value){
+        var array = [];
+        for(var i = 0; i < data.length; i++){
+            if (!data[i].hasOwnProperty(value)) continue;
+            array.push(data[i][value]);
+        }
+        return array;
+    } 
 } // fin tools

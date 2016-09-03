@@ -1,13 +1,9 @@
-var app = angular.module('appHome', []);
-// configuracion para compatibilidad con python
-app.config(function($interpolateProvider) {
-    $interpolateProvider.startSymbol('{$');
-    $interpolateProvider.endSymbol('$}');
-});
 
-app.controller('homeController', function($scope, $http) {
+app.controller('homeController', function($scope, $http, carrito) {
 
     $scope.showHome = true;
+    $scope.carrito = carrito;
+
 
     var listaProductos = function(request){
         console.log(request);
@@ -34,8 +30,14 @@ app.controller('homeController', function($scope, $http) {
         $scope.details = this.p;
     }
 
+    $scope.addProductInCar = function(){
+        $scope.carrito.push(this.p.id);
+        tools.putCookie("productos", JSON.stringify($scope.carrito));
+    }
+
     $http(tools.getSettings("GET", "/product/")).success(listaProductos);    
     $http(tools.getSettings("GET", "/categories/")).success(categories);    
       
 
 });
+

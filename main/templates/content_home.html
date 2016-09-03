@@ -36,14 +36,28 @@
         <div ng-repeat="p in listaProductos" class="col-sm-4 col-lg-4 col-md-4">
             <div class="thumbnail">
                 <img src="{$ p.images[0].image $}" alt="">
-                <div class="caption">
-                    <button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-shopping-cart"></span></button>
-                    <h4 class="">$ {$ p.price $}</h4>
-                    <h4>
-                        <p style="cursor:pointer; color: #489cdf;" ng-click="details_product()">{$ p.name $}</p>
-                    </h4>
+                <div style="padding:6px;">
+                    <div style="margin:8px;">
+                        <span style="cursor:pointer; color: #489cdf; font-size:20px; margin-right:20px;" ng-click="details_product()">
+                            {$ p.name $}
+                        </span>
+                        <span style="font-size:20px;"> 
+                            $ {$ p.price $}
+                        </span>
+                    </div>
+                    <div class="form-inline">
+                        <div class="input-group">
+                            <input id="cantProducts" class="form-control bfh-number" type="text" name=""/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default">+</button>
+                                <button class="btn btn-default">-</button>
+                                <button ng-click="addProductInCar()" class="btn btn-primary" title="agregar al pedido">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <p> {$ p.description $}</p>
-
                 </div>
                 <div class="ratings">
                     <p class="pull-right">15 reviews</p>

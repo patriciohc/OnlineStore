@@ -45,6 +45,7 @@ urlpatterns = [
    	url(r'^sign_up/', views.sign_up),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url('', include('api_rest.urls', namespace='api_rest')),
+    url(r'^pedido', views.pedido),
     #url(r'^static/(?P<path>.*)$', views_files.serve),
 ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
